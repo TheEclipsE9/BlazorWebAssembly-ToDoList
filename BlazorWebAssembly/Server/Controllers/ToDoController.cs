@@ -14,8 +14,9 @@ namespace BlazorWebAssembly.Server.Controllers
             new ToDoItem { Url = "gototheGym", Title = "Go to the gym", Description = "from 8.00 to 9.00" }
         };
 
+        //[HttpGet("{url}")]
         [HttpGet]
-        [Route("api/[controller]/{url}")]
+        [Route("{url}")]
         public ActionResult<ToDoItem> GetToDoItemByUrl(string url)
         {
             var toDoItem = ToDoItems.FirstOrDefault(x => x.Url == url);
