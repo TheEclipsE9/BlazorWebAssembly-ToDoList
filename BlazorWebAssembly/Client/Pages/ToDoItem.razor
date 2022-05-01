@@ -1,0 +1,35 @@
+﻿@page "/todolist/{url}"
+
+@inject BlazorWebAssembly.Client.Services.IToDoService ToDoService
+@inject HttpClient Http
+
+@if (toDoItem == null)
+{
+    <div>
+        Getting data from Web API...
+    </div>
+}
+else
+{
+    <div>
+        <h1>ToDoItem: @toDoItem.Title</h1>
+        <div>
+            Description: @toDoItem.Description
+        </div>
+    </div>
+}
+
+
+@code {
+    [Parameter]
+    public string Url { get; set; }
+
+    private BlazorWebAssembly.Shared.ToDoItem toDoItem { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        //toDoItem = await ToDoService.GetToDoItemByUrl(url);
+        toDoItem = await Http.GetFromJsonAsync<BlazorWebAssembly.Shared.ToDoItem>($"api/ToDo/{Url}");
+    }
+
+}
