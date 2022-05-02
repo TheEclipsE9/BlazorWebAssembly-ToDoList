@@ -14,7 +14,18 @@ namespace BlazorWebAssembly.Client.Services
 
         public async Task<ToDoItem> GetToDoItemByUrl(string url)
         {
-            return await _httpClient.GetFromJsonAsync<ToDoItem>($"api/ToDo/{url}");
+            var result = await _httpClient.GetAsync($"api/ToDo/{url}");
+
+            if (result.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var message = await result.Content.ReadAsStringAsync();
+                Console.WriteLine(message);
+                return new ToDoItem { Title = message, Description = message };
+            }
+            else
+            {
+                return await result.Content.ReadFromJsonAsync<ToDoItem>();
+            }
         }
 
         public async Task<List<ToDoItem>> GetAllToDoItems()

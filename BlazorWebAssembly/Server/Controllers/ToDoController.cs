@@ -1,4 +1,5 @@
-﻿using BlazorWebAssembly.Shared;
+﻿using BlazorWebAssembly.Server.Data;
+using BlazorWebAssembly.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,11 +9,18 @@ namespace BlazorWebAssembly.Server.Controllers
     [ApiController]
     public class ToDoController : ControllerBase
     {
+        private readonly ToDoListContext _dbContext;
+
         private List<ToDoItem> ToDoItems = new List<ToDoItem>
         {
             new ToDoItem { Url = "gotothesupermarket", Title = "Go to the supermarket", Description = "Buy a bread" },
             new ToDoItem { Url = "gototheGym", Title = "Go to the gym", Description = "from 8.00 to 9.00" }
         };
+
+        public ToDoController(ToDoListContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
         //[HttpGet("{url}")]
         [HttpGet]
@@ -30,7 +38,7 @@ namespace BlazorWebAssembly.Server.Controllers
         [HttpGet]
         public ActionResult<List<ToDoItem>> GetAllToDoItems()
         {
-            return Ok(ToDoItems);
+            return Ok(_dbContext.ToDoItems);
         }
     }
 }

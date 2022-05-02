@@ -1,5 +1,6 @@
 ﻿@page "/todolist"
 
+@using BlazorWebAssembly.Shared
 @inject BlazorWebAssembly.Client.Services.IToDoService ToDoService
 @inject HttpClient Http
 
@@ -8,15 +9,20 @@
 
 <h1>My ToDoList</h1>
 
-@if (toDoItems == null)
+@if (ToDoItems == null)
 {
     <div>
         Getting data from Web API...
     </div>
 }
+else if(ToDoItems.Count == 0){
+    <div>
+        There is nothing to do.
+    </div>
+}
 else
 {
-    @foreach (var item in toDoItems)
+    @foreach (var item in ToDoItems)
     {
         <div>
             <div>
@@ -33,11 +39,10 @@ else
 }
 
 @code {
-    private List<BlazorWebAssembly.Shared.ToDoItem> toDoItems { get; set; }
+    private List<ToDoItem> ToDoItems { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        //toDoItems = await ToDoService.GetAllToDoItems();
-        toDoItems =  await Http.GetFromJsonAsync<List<BlazorWebAssembly.Shared.ToDoItem>>("api/ToDo");
+        ToDoItems = await ToDoService.GetAllToDoItems();
     }
 }
