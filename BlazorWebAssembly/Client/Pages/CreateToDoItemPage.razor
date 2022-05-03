@@ -1,0 +1,30 @@
+﻿@page "/createtodoitem"
+
+@inject BlazorWebAssembly.Client.Services.IToDoService ToDoService
+@inject NavigationManager NavigationManager
+
+<h1>
+    Create ToDoItem
+</h1>
+
+<EditForm Model="@NewToDoItem" OnValidSubmit="CreateNewToDoItem">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <InputText id="titile" class="form-control" @bind-Value="NewToDoItem.Title" />
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <InputTextArea id="description" class="form-control" @bind-Value="NewToDoItem.Description" />
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</EditForm>
+
+@code {
+    public ToDoItem NewToDoItem { get; set; } = new ToDoItem();
+
+    private async Task CreateNewToDoItem()
+    {
+        NewToDoItem.Url = NewToDoItem.Title.ToLower();
+        await ToDoService.CreateToDoItem(NewToDoItem);
+    }
+}

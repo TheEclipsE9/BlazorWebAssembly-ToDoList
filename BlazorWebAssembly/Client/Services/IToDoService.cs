@@ -6,5 +6,6 @@ namespace BlazorWebAssembly.Client.Services
     {
         Task<ToDoItem> GetToDoItemByUrl(string url);
         Task<List<ToDoItem>> GetAllToDoItems();
+        Task CreateToDoItem(ToDoItem toDoItem);
     }
 }

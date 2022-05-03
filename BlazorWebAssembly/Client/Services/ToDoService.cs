@@ -32,5 +32,10 @@ namespace BlazorWebAssembly.Client.Services
         {
             return await _httpClient.GetFromJsonAsync<List<ToDoItem>>("api/ToDo");
         }
+
+        public async Task CreateToDoItem(ToDoItem toDoItem)
+        {
+            await _httpClient.PostAsJsonAsync("api/ToDo", toDoItem);
+        }
     }
 }
