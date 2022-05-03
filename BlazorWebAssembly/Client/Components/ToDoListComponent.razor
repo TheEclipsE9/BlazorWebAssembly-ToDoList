@@ -1,11 +1,5 @@
-﻿@page "/todolist"
-
-@using BlazorWebAssembly.Shared
-@inject BlazorWebAssembly.Client.Services.IToDoService ToDoService
+﻿@inject BlazorWebAssembly.Client.Services.IToDoService ToDoService
 @inject HttpClient Http
-
-<PageTitle>MyToDoList</PageTitle>
-
 
 <h1>My ToDoList</h1>
 
@@ -29,7 +23,7 @@ else
                 Title: @item.Title
             </div>
             <div>
-                Descriptiob: @item.Description
+                Description: @item.Description
             </div>
             <div>
                 <a href="/todolist/@item.Url">details</a>

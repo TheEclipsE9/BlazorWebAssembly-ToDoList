@@ -4,6 +4,7 @@
 @inject BlazorWebAssembly.Client.Services.IToDoService ToDoService
 @inject HttpClient Http
 
+<h1>My ToDoItem</h1>
 @if (ToDoItem == null)
 {
     <div>
@@ -13,7 +14,9 @@
 else
 {
     <div>
-        <h1>My ToDoItem: @ToDoItem.Title</h1>
+        <div>
+            Title: @ToDoItem.Title
+        </div>
         <div>
             Description: @ToDoItem.Description
         </div>
