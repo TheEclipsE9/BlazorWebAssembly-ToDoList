@@ -36,7 +36,7 @@ namespace BlazorWebAssembly.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ToDoItem>> CreateNewToDoItem(ToDoItem toDoItem)
+        public async Task<ActionResult> CreateNewToDoItem(ToDoItem toDoItem)
         {
             _dbContext.Add(toDoItem);
             await _dbContext.SaveChangesAsync();

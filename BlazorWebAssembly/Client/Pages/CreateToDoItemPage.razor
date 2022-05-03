@@ -26,5 +26,6 @@
     {
         NewToDoItem.Url = NewToDoItem.Title.ToLower();
         await ToDoService.CreateToDoItem(NewToDoItem);
+        NavigationManager.NavigateTo("/");
     }
 }
