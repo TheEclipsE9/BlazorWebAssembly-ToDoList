@@ -14,7 +14,7 @@ namespace BlazorWebAssembly.Client.Services
 
         public async Task<ToDoItem> GetToDoItemByUrl(string url)
         {
-            var result = await _httpClient.GetAsync($"api/ToDo/{url}");
+            var result = await _httpClient.GetAsync($"api/ToDo/GetToDoItemByUrl/{url}");
 
             if (result.StatusCode != System.Net.HttpStatusCode.OK)
             {
@@ -30,12 +30,32 @@ namespace BlazorWebAssembly.Client.Services
 
         public async Task<List<ToDoItem>> GetAllToDoItems()
         {
-            return await _httpClient.GetFromJsonAsync<List<ToDoItem>>("api/ToDo");
+            return await _httpClient.GetFromJsonAsync<List<ToDoItem>>("api/ToDo/GetAllToDoItems");
         }
 
         public async Task CreateToDoItem(ToDoItem toDoItem)
         {
-            await _httpClient.PostAsJsonAsync("api/ToDo", toDoItem);
+            await _httpClient.PostAsJsonAsync("api/ToDo/CreateNewToDoItem", toDoItem);
+        }
+
+        public async Task MarkAsDone(ToDoItem toDoItem)
+        {
+            await _httpClient.PutAsJsonAsync($"api/ToDo/MarkAsDone/{toDoItem.Id}", toDoItem);
+        }
+
+        public async Task MarkAsDeleted(ToDoItem toDoItem)
+        {
+            await _httpClient.PutAsJsonAsync($"api/ToDo/MarkAsDeleted/{toDoItem.Id}", toDoItem);
+        }
+
+        public async Task<List<ToDoItem>> GetAllDoneToDoItems()
+        {
+            return await _httpClient.GetFromJsonAsync<List<ToDoItem>>("api/ToDo/GetAllDoneToDoItems");
+        }
+
+        public async Task<List<ToDoItem>> GetAllDeletedToDoItems()
+        {
+            return await _httpClient.GetFromJsonAsync<List<ToDoItem>>("api/ToDo/GetAllDeletedToDoItems");
         }
     }
 }

@@ -6,6 +6,10 @@ namespace BlazorWebAssembly.Client.Services
     {
         Task<ToDoItem> GetToDoItemByUrl(string url);
         Task<List<ToDoItem>> GetAllToDoItems();
+        Task<List<ToDoItem>> GetAllDoneToDoItems();
+        Task<List<ToDoItem>> GetAllDeletedToDoItems();
         Task CreateToDoItem(ToDoItem toDoItem);
+        Task MarkAsDone(ToDoItem toDoItem);
+        Task MarkAsDeleted(ToDoItem toDoItem);
     }
 }

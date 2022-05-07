@@ -9,7 +9,8 @@
         Getting data from Web API...
     </div>
 }
-else if(ToDoItems.Count == 0){
+else if (ToDoItems.Count == 0)
+{
     <div>
         There is nothing to do.
     </div>
@@ -20,13 +21,18 @@ else
     {
         <div>
             <div>
-                Title: @item.Title
-            </div>
-            <div>
-                Description: @item.Description
-            </div>
-            <div>
-                <a href="/todolist/@item.Url">details</a>
+                <span>
+                    @item.Title
+                </span>
+                <span>
+                    <span class="oi oi-check" aria-hidden="true" @onclick="()=>MarkAsDone(item)"></span>
+                </span>
+                <span>
+                    <span class="oi oi-trash" aria-hidden="true" @onclick="()=>MarkAsDeleted(item)"></span>
+                </span>
+                <span>
+                    <a href="/todolist/@item.Url">details</a>
+                </span>
             </div>
         </div>
     }
@@ -38,5 +44,17 @@ else
     protected override async Task OnInitializedAsync()
     {
         ToDoItems = await ToDoService.GetAllToDoItems();
+    }
+
+    private async Task MarkAsDone(ToDoItem toDoItem)
+    {
+        ToDoItems.Remove(toDoItem);
+        await ToDoService.MarkAsDone(toDoItem);
+    }
+
+    private async Task MarkAsDeleted(ToDoItem toDoItem)
+    {
+        ToDoItems.Remove(toDoItem);
+        await ToDoService.MarkAsDeleted(toDoItem);
     }
 }
