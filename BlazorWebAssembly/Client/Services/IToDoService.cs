@@ -4,7 +4,6 @@ namespace BlazorWebAssembly.Client.Services
 {
     public interface IToDoService
     {
-        Task<ToDoItem> GetToDoItemByUrl(string url);
         Task<List<ToDoItem>> GetAllToDoItems();
         Task<List<ToDoItem>> GetAllDoneToDoItems();
         Task<List<ToDoItem>> GetAllDeletedToDoItems();

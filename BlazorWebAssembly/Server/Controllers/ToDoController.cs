@@ -16,19 +16,6 @@ namespace BlazorWebAssembly.Server.Controllers
             _dbContext = dbContext;
         }
 
-        //[HttpGet("{url}")]
-        [HttpGet]
-        [Route("{url}")]
-        public ActionResult<ToDoItem> GetToDoItemByUrl(string url)
-        {
-            var toDoItem = _dbContext.ToDoItems.FirstOrDefault(x => x.Url == url);
-            if (toDoItem == null)
-            {
-                return NotFound("Item not found!");
-            }
-            return Ok(toDoItem);
-        }
-
         [HttpGet]
         public ActionResult<List<ToDoItem>> GetAllToDoItems()
         {
