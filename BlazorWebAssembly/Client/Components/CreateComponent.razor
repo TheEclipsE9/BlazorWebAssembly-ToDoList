@@ -1,11 +1,6 @@
-﻿@page "/createtodoitem"
+﻿@inject BlazorWebAssembly.Client.Services.IToDoService ToDoService
 
-@inject BlazorWebAssembly.Client.Services.IToDoService ToDoService
-@inject NavigationManager NavigationManager
-
-<h1>
-    Create ToDoItem
-</h1>
+<h3>CreateComponent</h3>
 
 <EditForm Model="@NewToDoItem" OnValidSubmit="CreateNewToDoItem">
     <div class="form-group">
@@ -16,11 +11,10 @@
 </EditForm>
 
 @code {
-    public ToDoItem NewToDoItem { get; set; } = new ToDoItem();
+    public ToDoItem NewToDoItem = new ToDoItem();
 
     private async Task CreateNewToDoItem()
     {
         await ToDoService.CreateToDoItem(NewToDoItem);
-        NavigationManager.NavigateTo("/");
     }
 }
