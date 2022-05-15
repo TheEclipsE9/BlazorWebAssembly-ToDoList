@@ -1,7 +1,7 @@
 ﻿using BlazorWebAssembly.Server.Data;
 using BlazorWebAssembly.Shared;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using BlazorWebAssembly.Client.Services.Enums;
 
 namespace BlazorWebAssembly.Server.Controllers
 {
@@ -58,6 +58,32 @@ namespace BlazorWebAssembly.Server.Controllers
         {
             var toDoItem = _dbContext.ToDoItems.FirstOrDefault(x => x.Id == id);
             toDoItem.IsDeleted = true;
+            await _dbContext.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        [Route("{deletetype}")]
+        public async Task<ActionResult> DeleteAll(DeleteType deleteType)
+        {
+            var toDoItems = new List<ToDoItem>();
+            switch (deleteType)
+            {
+                case DeleteType.IsDeleted:
+                    toDoItems = _dbContext.ToDoItems.Where(x=>x.IsDeleted == true).ToList();
+                    break;
+                case DeleteType.IsDone:
+                    toDoItems = _dbContext.ToDoItems.Where(x => x.IsDone == true).ToList();
+                    break;
+                case DeleteType.All:
+                    toDoItems = _dbContext.ToDoItems.ToList();
+                    break;
+                default:
+                    break;
+            }
+
+            _dbContext.RemoveRange(toDoItems);
             await _dbContext.SaveChangesAsync();
 
             return Ok();

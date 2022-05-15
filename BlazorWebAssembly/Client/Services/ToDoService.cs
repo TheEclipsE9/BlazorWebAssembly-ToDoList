@@ -1,4 +1,5 @@
-﻿using BlazorWebAssembly.Shared;
+﻿using BlazorWebAssembly.Client.Services.Enums;
+using BlazorWebAssembly.Shared;
 using System.Net.Http.Json;
 
 namespace BlazorWebAssembly.Client.Services
@@ -40,6 +41,11 @@ namespace BlazorWebAssembly.Client.Services
         public async Task<List<ToDoItem>> GetAllDeletedToDoItems()
         {
             return await _httpClient.GetFromJsonAsync<List<ToDoItem>>("api/ToDo/GetAllDeletedToDoItems");
+        }
+
+        public async Task DeleteAll(DeleteType deleteType)
+        {
+            await _httpClient.DeleteAsync($"api/ToDo/DeleteAll/{deleteType}");
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿@page "/donetodolist"
+@using BlazorWebAssembly.Client.Services.Enums
 
 @inject BlazorWebAssembly.Client.Services.IToDoService ToDoService
 @inject HttpClient Http
 
 <h1>My Done ToDoList</h1>
+<button @onclick="DeleteAll" type="submit" class="btn btn-primary">Clean</button>
 
 @if (ToDoItems == null)
 {
@@ -32,10 +34,17 @@ else
 }
 
 @code {
+    const DeleteType deleteType = DeleteType.IsDone;
     private List<ToDoItem> ToDoItems { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         ToDoItems = await ToDoService.GetAllDoneToDoItems();
+    }
+
+    private async Task DeleteAll()
+    {
+        ToDoItems.Clear();
+        await ToDoService.DeleteAll(deleteType);
     }
 }

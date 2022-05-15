@@ -1,4 +1,5 @@
-﻿using BlazorWebAssembly.Shared;
+﻿using BlazorWebAssembly.Client.Services.Enums;
+using BlazorWebAssembly.Shared;
 
 namespace BlazorWebAssembly.Client.Services
 {
@@ -10,5 +11,6 @@ namespace BlazorWebAssembly.Client.Services
         Task CreateToDoItem(ToDoItem toDoItem);
         Task MarkAsDone(ToDoItem toDoItem);
         Task MarkAsDeleted(ToDoItem toDoItem);
+        Task DeleteAll(DeleteType deleteType);
     }
 }
