@@ -3,7 +3,7 @@
 
 <h1>My ToDoList</h1>
 
-<CreateComponent/>
+<CreateComponent Callback="@UpdateStatus"/>
 
 @if (ToDoItems == null)
 {
@@ -55,5 +55,10 @@ else
     {
         ToDoItems.Remove(toDoItem);
         await ToDoService.MarkAsDeleted(toDoItem);
+    }
+
+    private async Task UpdateStatus()
+    {
+        ToDoItems = await ToDoService.GetAllToDoItems();
     }
 }
