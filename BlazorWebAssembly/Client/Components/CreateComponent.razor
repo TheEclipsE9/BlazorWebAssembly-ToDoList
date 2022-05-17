@@ -3,7 +3,9 @@
 <h3>CreateComponent</h3>
 
 <EditForm Model="@NewToDoItem" OnValidSubmit="CreateNewToDoItem">
+    <DataAnnotationsValidator/>
     <div class="form-group">
+        <ValidationMessage For="@(()=>NewToDoItem.Title)" />
         <label for="title">Title</label>
         <InputText id="titile" class="form-control" @bind-Value="NewToDoItem.Title" />
     </div>
@@ -20,5 +22,6 @@
     {
         await ToDoService.CreateToDoItem(NewToDoItem);
         await Callback.InvokeAsync();
+        NewToDoItem.Title = "";
     }
 }
