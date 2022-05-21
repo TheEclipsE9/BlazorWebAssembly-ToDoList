@@ -16,12 +16,13 @@
     public ToDoItem NewToDoItem = new ToDoItem();
 
     [Parameter]
-    public EventCallback Callback { get; set; }
+    public EventCallback<ToDoItem> Callback { get; set; }
 
     private async Task CreateNewToDoItem()
     {
-        await ToDoService.CreateToDoItem(NewToDoItem);
-        await Callback.InvokeAsync();
+        var item = (ToDoItem)NewToDoItem.Clone();
+        await Callback.InvokeAsync(item);
+
         NewToDoItem.Title = "";
     }
 }

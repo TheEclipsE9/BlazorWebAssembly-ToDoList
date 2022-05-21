@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BlazorWebAssembly.Shared
 {
-    public class ToDoItem
+    public class ToDoItem : ICloneable
     {
         public int Id { get; set; }
         [Required, MinLength(5, ErrorMessage = "Min title length is 5!")]
@@ -15,5 +15,10 @@ namespace BlazorWebAssembly.Shared
 
         public bool IsDone { get; set; } = false;
         public bool IsDeleted { get; set; } = false;
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

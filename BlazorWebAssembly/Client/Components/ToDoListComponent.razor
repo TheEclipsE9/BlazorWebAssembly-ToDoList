@@ -3,7 +3,7 @@
 
 <h1>My ToDoList</h1>
 
-<CreateComponent Callback="@UpdateStatus"/>
+<CreateComponent Callback="@CreateNewToDoItem"/>
 
 @if (ToDoItems == null)
 {
@@ -38,7 +38,7 @@ else
 }
 
 @code {
-    private List<ToDoItem> ToDoItems { get; set; }
+    private List<ToDoItem> ToDoItems;
 
     protected override async Task OnInitializedAsync()
     {
@@ -57,8 +57,10 @@ else
         await ToDoService.MarkAsDeleted(toDoItem);
     }
 
-    private async Task UpdateStatus()
+    private async Task CreateNewToDoItem(ToDoItem newToDoItem)
     {
-        ToDoItems = await ToDoService.GetAllToDoItems();
+        await ToDoService.CreateToDoItem(newToDoItem);
+        //if status OK => add
+        ToDoItems.Add(newToDoItem);
     }
 }
