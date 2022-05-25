@@ -1,16 +1,17 @@
 ﻿@inject BlazorWebAssembly.Client.Services.IToDoService ToDoService
 
-<h3>CreateComponent</h3>
-
-<EditForm Model="@NewToDoItem" OnValidSubmit="CreateNewToDoItem">
-    <DataAnnotationsValidator/>
-    <div class="form-group">
-        <ValidationMessage For="@(()=>NewToDoItem.Title)" />
-        <label for="title">Title</label>
-        <InputText id="titile" class="form-control" @bind-Value="NewToDoItem.Title" />
-    </div>
-    <button type="submit" class="btn btn-primary">Create</button>
-</EditForm>
+<div class="create-component">
+    <EditForm class="d-flex flex-row" Model="@NewToDoItem" OnValidSubmit="CreateNewToDoItem">
+        <DataAnnotationsValidator />
+        <div class="form-group d-flex flex-row">
+            <ValidationMessage For="@(()=>NewToDoItem.Title)" />
+            <label  for="title"></label>
+            <InputText placeholder="Title" id="titile" class="form-control" style="max-width: 300px" @bind-Value="NewToDoItem.Title" />
+            
+        </div>
+        <button type="submit" class="btn btn-primary oi oi-plus"></button>
+    </EditForm>
+</div>
 
 @code {
     public ToDoItem NewToDoItem = new ToDoItem();
